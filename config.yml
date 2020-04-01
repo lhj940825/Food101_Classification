@@ -1,0 +1,6 @@
+data:
+  - dir_class10: '\dataset\class10\'
+
+test:
+  - 123d: 123
+  - 2: 234

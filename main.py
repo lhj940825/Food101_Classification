@@ -3,9 +3,14 @@
  * Date: 2020-04-01
 '''
 
-import test
+
+import torch
 
 def main():
+
+
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
     print('123')
 
 

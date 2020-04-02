@@ -7,8 +7,8 @@ import torch
 import torchvision
 import torchvision.transforms as transforms
 import numpy as np
-import yaml
 import os
+
 
 test_data_class10_dir = os.path.join(os.getcwd(),'dataset\\class10\\images')
 def get_data_loader(data_dir= test_data_class10_dir, batch_size=2, train = True):
@@ -39,22 +39,23 @@ def get_data_loader(data_dir= test_data_class10_dir, batch_size=2, train = True)
         ])
     }
 
-        # ImageFloder with root directory and defined transformation methods for batch as well as data augmentation
+    # ImageFloder with root directory and defined transformation methods for batch as well as data augmentation
     data = torchvision.datasets.ImageFolder(root=data_dir, transform=transform['train'] if train else 'test')
+    data_loader = torch.utils.data.DataLoader(dataset=data, batch_size=batch_size, shuffle=True, num_workers=4)
 
-    data_loader = torch.utils.data.DataLoader(dataset=data, batch_size=batch_size, shuffle=True)
-    #print(train_dataset)
     return data_loader
 
-#print(os.listdir(test_data_class10_dir))
 
 # The way to get one batch from the data_loader
-'''
-data_loader = get_data_loader()
-for i in range(10):
-    batch_x, batch_y = next(iter(data_loader))
-    print(np.shape(batch_x), batch_y)
-'''
+if __name__ == "__main__":
+    torch.multiprocessing.freeze_support()
+    data_loader = get_data_loader()
+
+    for i in range(10):
+        batch_x, batch_y = next(iter(data_loader))
+        print(np.shape(batch_x), batch_y)
+
+
 
 
 

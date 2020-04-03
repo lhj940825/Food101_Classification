@@ -10,8 +10,8 @@ import numpy as np
 import os
 
 
-test_data_class10_dir = os.path.join(os.getcwd(),'dataset\\class10\\images')
-def get_data_loader(data_dir= test_data_class10_dir, batch_size=2, train = True):
+test_data_class10_dir = os.path.join(os.getcwd(),'dataset\\class10')
+def get_data_loader(data_dir= test_data_class10_dir, batch_size=6, train = True):
     """
     Define the way we compose the batch dataset including the augmentation for increasing the number of data
     and return the augmented batch-dataset
@@ -22,6 +22,7 @@ def get_data_loader(data_dir= test_data_class10_dir, batch_size=2, train = True)
     :return: augmented batch dataset
     """
 
+    data_dir = os.path.join(data_dir, 'train' if train==True else 'test')
     # define how we augment the data for composing the batch-dataset in train and test step
     transform = {
         'train': transforms.Compose([
@@ -50,7 +51,7 @@ def get_data_loader(data_dir= test_data_class10_dir, batch_size=2, train = True)
 if __name__ == "__main__":
     torch.multiprocessing.freeze_support()
     data_loader = get_data_loader()
-
+    print(len(data_loader))
     for i in range(10):
         batch_x, batch_y = next(iter(data_loader))
         print(np.shape(batch_x), batch_y)

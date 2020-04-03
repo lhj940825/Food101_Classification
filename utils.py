@@ -8,6 +8,7 @@ import shutil
 import os
 import numpy as np
 import argparse
+import yaml
 
 def is_gpu_available():
     """
@@ -15,6 +16,22 @@ def is_gpu_available():
     :return: true or false
     """
     return torch.cuda.is_available()
+
+def parse_yml(file_name):
+
+    with open(file_name) as f:
+
+        docs = yaml.load_all(f, Loader=yaml.FullLoader)
+
+        for doc in docs:
+            for k, v in doc.items():
+                print(k,v)
+                for v_s in v:
+                    print(v_s.get('123d'))
+
+
+    #TODO Add codes for parsing hyperparameters and directory paths, return those
+    return
 
 
 

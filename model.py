@@ -42,7 +42,10 @@ def get_pretrained_network(model_name, num_classes, use_trained=True, device="cp
         num_features = model.fc.in_features
         # update the fully connected layer
         model.fc = nn.Linear(num_features, num_classes)
+
+        # Send the model to GPU if cuda.isAvaliable()
         model.to(device)
+
 
         return model
     elif model_name == "vgg":
@@ -52,6 +55,8 @@ def get_pretrained_network(model_name, num_classes, use_trained=True, device="cp
         #model.classifier[6] refers to the fully connected layer of VGG
         num_features = model.classifier[6].in_features
         model.classifier[6] = nn.Linear(num_features, num_classes)
+
+        # Send the model to GPU if cuda.isAvaliable()
         model.to(device)
 
         return model
@@ -77,11 +82,12 @@ def set_parameter_requires_grad(model: nn.Module, feature_extracting=True):
 
     return
 
-
+"""
 # In order to test out whether the pretrained models are loaded appropriately
 if __name__ == '__main__':
     model = get_pretrained_network('vgg', 10,True,"cuda:0")
     print(model)
+"""
 
 
 
